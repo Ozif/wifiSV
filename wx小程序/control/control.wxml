@@ -1,0 +1,3 @@
+<view class="gridbox">
+  <view class="item" hover-class="hoveritem" wx:for="{{colors}}" wx:key="{{index}}" style="background-color: {{item}};" data-color="{{item}}" bind:tap="carry"></view>
+</view>

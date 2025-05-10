@@ -1,0 +1,36 @@
+.config {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-80%);
+  padding: 20px;
+  border-radius: 12px; 
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+}
+
+.ip,
+.port {
+  height: 80rpx;
+  width: 600rpx;
+  margin-bottom: 30rpx;
+  padding: 0 20rpx;
+  background: rgb(230, 230, 230);
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.subbut {
+  width: 100%;
+  height: 80rpx;
+  background: linear-gradient(135deg, #4e73df, #224abe);
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+}
+
+.subing {
+  background: linear-gradient(-45deg, #4e73df, #224abe);
+}
