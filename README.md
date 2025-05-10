@@ -60,3 +60,4 @@ void loop()
 `main.cpp`中需要有名为`doc`的`JsonDocument`变量用于存储从`k210`获取来的颜色信息,`Web_init()`会自动获取`doc`给`Web_getdata`API使用。
 
 ---
+## 微信小程序如`wx小程序`所示
