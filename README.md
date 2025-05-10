@@ -6,7 +6,6 @@
 `wifiSV.h`文件放置在`include`文件夹中;
 `wifiSV.cpp`文件放置在有`main.cpp`存在的`src`文件夹中。
 ```plaintext
-d:\download\others\arm
 ├── include\
 │   └── wifiSV.h
 ├── src\
