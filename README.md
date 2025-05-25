@@ -19,9 +19,7 @@
 
 ### 式例
 ```cpp
-#include <Arduino.h>
 #include "wifiSV.h"
-#include <ArduinoJson.h>
 
 // WiFi信息
 const char *ssid = "507";
