@@ -1,11 +1,8 @@
-#include <Arduino.h>
-#include <WiFi.h>
-#include <WebServer.h>
-#include <ArduinoJson.h> // 引入 ArduinoJson 库
+#include "wifiSV.h"
 
 WebServer server(80); // 启动端口
 JsonDocument doc;     // Json
-
+String color[2];
 void wifi_init(const char *ssid, const char *password)
 {
   WiFi.begin(ssid, password);
@@ -21,19 +18,6 @@ void wifi_init(const char *ssid, const char *password)
   Serial.print("IP:");
   Serial.println(WiFi.localIP());
   Serial.print("\n");
-};
-
-void Web_init()
-{
-  server.on("/", []()
-            { Web_open(); });
-  server.on("/getdata", [&]()
-            { Web_getdata(doc); });
-  server.on("/putdata", []()
-            { Web_putdata(); });
-  server.onNotFound([]()
-                    { server.send(404, "text/html;charset=UTF-8", "你访问的接口不存在"); });
-  server.begin();
 };
 
 // open验证接口
@@ -52,13 +36,25 @@ void Web_getdata(JsonDocument &jsonDoc)
 }
 
 // 处理 /putdata 请求的函数
-String *Web_putdata()
+void Web_putdata()
 {
   String start = server.arg("start");
   String stop = server.arg("stop");
-  String color[2] = {start, stop};
-  return color;
+  color[0] = start;
+  color[1] = stop;
 }
+void Web_init()
+{
+  server.on("/", []()
+            { Web_open(); });
+  server.on("/getdata", [&]()
+            { Web_getdata(doc); });
+  server.on("/putdata", []()
+            { Web_putdata(); });
+  server.onNotFound([]()
+                    { server.send(404, "text/html;charset=UTF-8", "你访问的接口不存在"); });
+  server.begin();
+};
 
 // 循环处理请求
 void Web_loop()
