@@ -50,10 +50,10 @@ void loop()
 }
 ```
 #### 解释
-01.`#include "wifiSV.h"`引入wifiSV;
-02.`wifi_init(ssid, password);`在`setup`调用，作用：wifi初始化,`ssid`为wifi名称,`password`为wifi密码;
-03.`Web_init();`在`setup`调用，作用：API初始化;
-04.`Web_loop();`开启服务需要在`loop()`中调用;
+> 01.`#include "wifiSV.h"`引入wifiSV;
+> 02.`wifi_init(ssid, password);`在`setup`调用，作用：wifi初始化,`ssid`为wifi名称,`password`为wifi密码;
+> 03.`Web_init();`在`setup`调用，作用：API初始化;
+> 04.`Web_loop();`开启服务需要在`loop()`中调用;
 
 #### 注意
 `main.cpp`中需要有名为`doc`的`JsonDocument`变量用于存储从`k210`获取来的颜色信息,`Web_init()`会自动获取`doc`给`Web_getdata`API使用。
