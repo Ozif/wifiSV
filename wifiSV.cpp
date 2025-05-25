@@ -2,7 +2,9 @@
 
 WebServer server(80); // 启动端口
 JsonDocument doc;     // Json
-String color[2];
+String color[2];      // 小程序获取起止颜色
+
+// wifi初始化
 void wifi_init(const char *ssid, const char *password)
 {
   WiFi.begin(ssid, password);
@@ -36,21 +38,23 @@ void Web_getdata(JsonDocument &jsonDoc)
 }
 
 // 处理 /putdata 请求的函数
-void Web_putdata()
+void Web_putdata(void ESPGetColor())
 {
   String start = server.arg("start");
   String stop = server.arg("stop");
   color[0] = start;
   color[1] = stop;
+  ESPGetColor();
 }
-void Web_init()
+
+void Web_init(JsonDocument &jsonDoc, void ESPGetColor())
 {
   server.on("/", []()
             { Web_open(); });
   server.on("/getdata", [&]()
-            { Web_getdata(doc); });
-  server.on("/putdata", []()
-            { Web_putdata(); });
+            { Web_getdata(jsonDoc); });
+  server.on("/putdata", [&]()
+            { Web_putdata(ESPGetColor); });
   server.onNotFound([]()
                     { server.send(404, "text/html;charset=UTF-8", "你访问的接口不存在"); });
   server.begin();
