@@ -52,15 +52,12 @@ void Web_getdata(JsonDocument &jsonDoc)
 }
 
 // 处理 /putdata 请求的函数
-void Web_putdata()
+String *Web_putdata()
 {
   String start = server.arg("start");
   String stop = server.arg("stop");
-  Serial.print("Received start color: ");
-  Serial.println(start);
-  Serial.print("Received stop color: ");
-  Serial.println(stop);
-  server.send(200, "text/plain", "Data received");
+  String color[2] = {start, stop};
+  return color;
 }
 
 // 循环处理请求
