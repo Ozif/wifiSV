@@ -1,60 +1,69 @@
-#  wifiSV使用说明
+# WiFiSV模块说明文档
 
----
+## 1. 模块概述
+这玩意儿是机械臂项目的WiFi通信模块，主要功能是：
+- 建立WiFi连接
+- 提供Web接口控制机械臂
+- 处理颜色数据交互
 
-## 1.文件放置位置
-`wifiSV.h`文件放置在`include`文件夹中;
-`wifiSV.cpp`文件放置在有`main.cpp`存在的`src`文件夹中。
-```plaintext
-├── include\
-│   └── wifiSV.h
-├── src\
-│   ├── main.cpp
-│   └── wifiSV.cpp
+## 2. 文件结构
+```
+Project/
+├── include/
+│   └── wifiSV.h       # 模块头文件
+├── src/
+│   ├── wifiSV.cpp     # 模块实现
+│   └── main.cpp       # 主程序
 ```
 
----
+## 3. 核心功能
 
-## 2.使用方法
-
-### 式例
+### 3.1 WiFi初始化
 ```cpp
-#include "wifiSV.h"
+void wifi_init(const char *ssid, const char *password);
+```
+- 参数：WiFi名称和密码
+- 功能：连接指定WiFi并输出IP地址
 
-// WiFi信息
+### 3.2 Web接口
+提供以下API端点：
+- `/` - 验证接口
+- `/getdata` - 小程序从这里获取颜色数据(JSON格式)
+- `/putdata` - 小程序发送颜色数据到这里
+
+### 3.3 回调机制
+```cpp
+void Web_putdata(void ESPGetColor());
+```
+- 当收到颜色数据时自动调用ESPGetColor回调函数
+
+### 3.4 Web_init集体传参
+```cpp
+void Web_init(const char *doc, void ESPGetColor());
+```
+- 参数：颜色JSON数据和回调函数
+- 功能：初始化Web服务器并一同给`Web_getdata`,`Web_putdata`传参
+
+## 4. 使用示例
+
+### 4.1 初始化
+```cpp
+// main.cpp中示例
 const char *ssid = "507";
 const char *password = "507507507507";
 
-// json
-JsonDocument doc;
-
-void setup()
-{
-  const char *color = "{\"color\":[\"red\",\"green\",\"blue\",\"pink\"]}";
-  DeserializationError error = deserializeJson(doc, color);
-  if (error)
-  {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.c_str());
-    return;
-  }
+void setup() {
   wifi_init(ssid, password);
-  Web_init();
-}
-
-void loop()
-{
-  Web_loop();
+  Web_init(doc, ESPGetColor); // doc是颜色JSON数据
 }
 ```
-#### 解释
-> 01.`#include "wifiSV.h"`引入wifiSV;
-> 02.`wifi_init(ssid, password);`在`setup`调用，作用：wifi初始化,`ssid`为wifi名称,`password`为wifi密码;
-> 03.`Web_init();`在`setup`调用，作用：API初始化;
-> 04.`Web_loop();`开启服务需要在`loop()`中调用;
 
-#### 注意
-`main.cpp`中需要有名为`doc`的`JsonDocument`变量用于存储从`k210`获取来的颜色信息,`Web_init()`会自动获取`doc`给`Web_getdata`API使用。
-
----
-## 微信小程序如`wx小程序`所示
+### 4.2 处理颜色数据
+```cpp
+// 回调函数示例
+// 全局变量color数组
+void ESPGetColor() {
+  Serial.println(color[0]); // 起始颜色
+  Serial.println(color[1]); // 结束颜色
+}
+```   
