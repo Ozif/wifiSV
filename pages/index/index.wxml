@@ -1,0 +1,7 @@
+<view class="bg"></view>
+<view class="config">
+  <view class="title">登录</view>
+  <input type="text" class="ip" placeholder="请输入机械臂的IP地址" model:value="{{ip}}" />
+  <!-- <input type="text" class="port"	placeholder="请输入机械臂连接端口" model:value="{{port}}"/> -->
+  <button class="subbut" hover-class="subing" bind:tap="submit">连接机械臂</button>
+</view>

@@ -1,0 +1,108 @@
+.config {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-80%);
+  padding: 20px;
+  border-radius: 12px; 
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+}
+
+/* 新增标题样式 */
+.title {
+  /* 居中布局 */
+  text-align: center;
+  margin-bottom: 40rpx;
+  
+  /* 字体样式 */
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #224abe;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 2rpx;
+  
+  /* 阴影效果 */
+  text-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+  
+  /* 渐变文字效果 */
+  background: linear-gradient(135deg, #68b4e3, #224abe, #68e3d7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ip{
+  height: 80rpx;
+  width: 600rpx;
+  margin-bottom: 30rpx;
+  padding: 0 20rpx;
+  background: rgb(230, 230, 230);
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.subbut {
+  width: 100%;
+  height: 80rpx;
+  background: linear-gradient(135deg, #4e73df, #224abe);
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+}
+
+.subing {
+  background: linear-gradient(-45deg, #4e73df, #224abe);
+}
+
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 渐变配色 */
+  background: linear-gradient(
+    135deg,
+    #12c2e9 0%,
+    #f8ff96 50%,
+    #23ff77 100% 
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 60s ease infinite;
+}
+
+/* 背景动画 */
+@keyframes gradientBG {
+  0% {
+    background-position: 15% 25%;
+  }
+  12.5% {
+    background-position: 80% 10%;
+  }
+  25% {
+    background-position: 30% 90%;
+  }
+  37.5% {
+    background-position: 70% 60%;
+  }
+  50% {
+    background-position: 10% 40%;
+  }
+  62.5% {
+    background-position: 90% 70%;
+  }
+  75% {
+    background-position: 20% 80%;
+  }
+  87.5% {
+    background-position: 60% 30%;
+  }
+  100% {
+    background-position: 45% 55%;
+  }
+}
+
+

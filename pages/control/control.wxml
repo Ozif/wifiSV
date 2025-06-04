@@ -1,0 +1,20 @@
+<view class="bg"></view>
+<view class="Ctrl">
+  <view class="titly">颜色控制</view>
+  <view class="Grid">
+    <!-- 修正：补全 wx:for 的 {{}} 绑定，删除 :style 的 : -->
+    <view class="colorItem" wx:for="{{colorItem}}" wx:key="LAB" id="{{item.LAB}}" style="background-color: {{item.color}};" hover-class="Hover" bind:tap="getColor"></view>
+  </view>
+</view>
+<view class="Ctrl">
+  <view class="titly">方位控制</view>
+  <view class="Grid">
+    <!-- 修正：补全 wx:for 的 {{}} 绑定，删除 :style 的 : -->
+    <view class="DirItem" wx:for="{{dirItem}}" wx:key="id" id="{{item.id}}" hover-class="Hover" bind:tap="getDir">{{item.icon}}</view>
+  </view>
+</view>
+
+<view class="sub">
+  <input type="text" disabled class="ipt" value="{{get.color+' 的 '+get.dir}}" />
+  <button bind:tap="Sub">提交</button>
+</view>
