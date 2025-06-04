@@ -1,8 +1,7 @@
 #include "wifiSV.h"
 
-WebServer server(80); // 启动端口
-JsonDocument doc;     // Json
-String color[2];      // 小程序获取起止颜色
+WebServer server(80);  // 启动端口
+String Web_API_get[2]; // 小程序获取起止颜色
 
 // wifi初始化
 void wifi_init(const char *ssid, const char *password)
@@ -22,19 +21,11 @@ void wifi_init(const char *ssid, const char *password)
   Serial.print("\n");
 };
 
-// open验证接口
+// 处理 / 请求的函数
 void Web_open()
 {
   server.send(200, "text/plain", "open");
   Serial.println("open");
-}
-
-// getdata颜色数据接口
-void Web_getdata(JsonDocument &jsonDoc)
-{
-  String output;
-  serializeJson(jsonDoc, output);
-  server.send(200, "application/json", output);
 }
 
 // 处理 /putdata 请求的函数
@@ -42,17 +33,16 @@ void Web_putdata(void ESPGetColor())
 {
   String color = server.arg("color");
   String dir = server.arg("dir");
-  get[0]=color;
-  get[1]=dir;
+  Web_API_get[0] = color;
+  Web_API_get[1] = dir;
   ESPGetColor();
 }
 
-void Web_init(JsonDocument &jsonDoc, void ESPGetColor())
+// 初始化 HTTP 服务器
+void Web_init(void ESPGetColor())
 {
   server.on("/", []()
             { Web_open(); });
-  server.on("/getdata", [&]()
-            { Web_getdata(jsonDoc); });
   server.on("/putdata", [&]()
             { Web_putdata(ESPGetColor); });
   server.onNotFound([]()

@@ -4,31 +4,17 @@
 const char *ssid = "507";
 const char *password = "507507507507";
 
-// 先创建个Json对象
-JsonDocument doc;
-
-// getcolor  回调函数，给Web_init传给Web_putdata，可以自己改
+// ESPGetColor  回调函数，给Web_init传给Web_putdata，可以自己改
 void ESPGetColor()
 {
-  Serial.println(get[0]);
-  Serial.println(get[1]);
+  Serial.println(Web_API_get[0]);
+  Serial.println(Web_API_get[1]);
 }
 
 void setup()
 {
-  // 给Web_init传给Web_getdata，可以自己改
-  // 给Json对象赋值
-  const char *color = "{\"color\":[\"red\",\"green\",\"blue\",\"pink\"]}";
-  DeserializationError error = deserializeJson(doc, color);
-  if (error)
-  {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.c_str());
-    return;
-  }
-  
   wifi_init(ssid, password);
-  Web_init(doc, ESPGetColor);
+  Web_init(ESPGetColor);
 }
 
 void loop()
